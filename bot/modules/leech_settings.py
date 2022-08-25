@@ -21,26 +21,26 @@ def getleechinfo(from_user):
         or user_id not in AS_MEDIA_USERS
         and AS_DOCUMENT
     ):
-        ltype = "DOCUMENT"
-        buttons.sbutton("Send As Media", f"leechset {user_id} med")
+        ltype = "ᴅᴏᴄᴜᴍᴇɴᴛ"
+        buttons.sbutton("sᴇɴs as ᴍᴇᴅɪᴀ", f"leechset {user_id} med")
     else:
-        ltype = "MEDIA"
-        buttons.sbutton("Send As Document", f"leechset {user_id} doc")
+        ltype = "ᴍᴇᴅɪᴀ"
+        buttons.sbutton("sᴇɴᴅ as ᴅᴏᴄᴜᴍᴇɴᴛ", f"leechset {user_id} doc")
 
     if ospath.exists(thumbpath):
-        thumbmsg = "Exists"
-        buttons.sbutton("Delete Thumbnail", f"leechset {user_id} thumb")
+        thumbmsg = "ᴇxɪsᴛs"
+        buttons.sbutton("ᴅᴇʟᴇᴛᴇ ᴛʜᴜᴍʙɴᴀɪʟ", f"leechset {user_id} thumb")
     else:
-        thumbmsg = "Not Exists"
+        thumbmsg = "ɴᴏᴛ ᴇxɪsᴛs"
 
     if AUTO_DELETE_MESSAGE_DURATION == -1:
-        buttons.sbutton("Close", f"leechset {user_id} close")
+        buttons.sbutton("ᴄʟᴏsᴇ", f"leechset {user_id} close")
 
     button = buttons.build_menu(1)
 
-    text = f"<u>Leech Settings for <a href='tg://user?id={user_id}'>{name}</a></u>\n"\
-           f"Leech Type <b>{ltype}</b>\n"\
-           f"Custom Thumbnail <b>{thumbmsg}</b>"
+    text = f"<u>ʟᴇᴇᴄʜ sᴇᴛᴛɪɴɢs ғᴏʀ <a href='tg://user?id={user_id}'>{name}</a></u>\n"\
+           f"ʟᴇᴇᴄʜ ᴛʏᴘᴇ <b>{ltype}</b>\n"\
+           f"ᴄᴜsᴛᴏᴍ ᴛʜᴜᴍʙɴᴀɪʟ <b>{thumbmsg}</b>"
     return text, button
 
 def editLeechType(message, query):
@@ -59,14 +59,14 @@ def setLeechType(update, context):
     data = query.data
     data = data.split()
     if user_id != int(data[1]):
-        query.answer(text="Not Yours!", show_alert=True)
+        query.answer(text="ᴛʜɪs ɪsɴᴛ ʏᴏᴜʀs! sᴛᴇᴘ ʙᴀᴄᴋ!", show_alert=True)
     elif data[2] == "doc":
         if user_id in AS_MEDIA_USERS:
             AS_MEDIA_USERS.remove(user_id)
         AS_DOC_USERS.add(user_id)
         if DB_URI is not None:
             DbManger().user_doc(user_id)
-        query.answer(text="Your File Will Deliver As Document!", show_alert=True)
+        query.answer(text="ʏᴏᴜʀ ғɪʟᴇ ᴡɪʟʟ ʙᴇ ᴅᴇʟɪᴠᴇʀᴇᴅ ᴀs ᴅᴏᴄᴜᴍᴇɴᴛ!", show_alert=True)
         editLeechType(message, query)
     elif data[2] == "med":
         if user_id in AS_DOC_USERS:
@@ -74,7 +74,7 @@ def setLeechType(update, context):
         AS_MEDIA_USERS.add(user_id)
         if DB_URI is not None:
             DbManger().user_media(user_id)
-        query.answer(text="Your File Will Deliver As Media!", show_alert=True)
+        query.answer(text="ʏᴏᴜʀ ғɪʟᴇ ᴡɪʟʟ ʙᴇ ᴅᴇʟɪᴠᴇʀᴇᴅ ᴀs ᴍᴇᴅɪᴀ!", show_alert=True)
         editLeechType(message, query)
     elif data[2] == "thumb":
         path = f"Thumbnails/{user_id}.jpg"
@@ -82,10 +82,10 @@ def setLeechType(update, context):
             osremove(path)
             if DB_URI is not None:
                 DbManger().user_rm_thumb(user_id, path)
-            query.answer(text="Thumbnail Removed!", show_alert=True)
+            query.answer(text="ᴛʜᴜᴍʙɴᴀɪʟ ʀᴇᴍᴏᴠᴇᴅ", show_alert=True)
             editLeechType(message, query)
         else:
-            query.answer(text="Old Settings", show_alert=True)
+            query.answer(text="ᴏʟᴅ sᴇᴛᴛɪɴɢs", show_alert=True)
     else:
         query.answer()
         try:
@@ -107,10 +107,10 @@ def setThumb(update, context):
         osremove(photo_dir)
         if DB_URI is not None:
             DbManger().user_save_thumb(user_id, des_dir)
-        msg = f"Custom thumbnail saved for {update.message.from_user.mention_html(update.message.from_user.first_name)}."
+        msg = f"ᴄᴜsᴛᴏᴍ ᴛʜᴜᴍʙɴᴀɪʟ sᴀᴠᴇᴅ ғᴏʀ {update.message.from_user.mention_html(update.message.from_user.first_name)}."
         sendMessage(msg, context.bot, update.message)
     else:
-        sendMessage("Reply to a photo to save custom thumbnail.", context.bot, update.message)
+        sendMessage("ʀᴇᴘʟʏ ᴛᴏ ᴀ ᴘʜᴏᴛᴏ ᴛᴏ ᴀʟsᴀᴠᴇ ᴄᴜsᴛᴏᴍ ᴛʜᴜᴍʙɴᴀɪʟ.", context.bot, update.message)
 
 leech_set_handler = CommandHandler(BotCommands.LeechSetCommand, leechSet, filters=CustomFilters.authorized_chat | CustomFilters.authorized_user, run_async=True)
 set_thumbnail_handler = CommandHandler(BotCommands.SetThumbCommand, setThumb, filters=CustomFilters.authorized_chat | CustomFilters.authorized_user, run_async=True)
