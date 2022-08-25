@@ -22,7 +22,7 @@ def _clone(message, bot):
             reply_to.delete()
     if BOT_PM and message.chat.type != 'private':
         try:
-            msg1 = f'Added your Requested link to Download\n'
+            msg1 = f'ᴀᴅᴅᴇᴅ ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛᴇᴅ ʟɪɴᴋ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ\n'
             send = bot.sendMessage(message.from_user.id, text=msg1)
             send.delete()
         except Exception as e:
@@ -31,8 +31,8 @@ def _clone(message, bot):
             b_uname = bot_d.username
             uname = message.from_user.mention_html(message.from_user.first_name)
             botstart = f"http://t.me/{b_uname}"
-            buttons.buildbutton("Click Here to Start Me", f"{botstart}")
-            startwarn = f"<b>Dear {uname}, Start me in PM to use me.</b>"
+            buttons.buildbutton("ʟᴇᴛs ɢᴇᴛ sᴛᴀʀᴛᴇᴅ", f"{botstart}")
+            startwarn = f"<b>ᴀʜʜ {uname}, sᴇᴇᴍs ʟɪᴋᴇ ʏᴏᴜ ʜᴀᴠᴇɴᴛ ᴛᴀʟᴋᴇᴅ ᴍᴇ ɪɴ ᴘʀɪᴠᴀᴛᴇ [ᴘᴍ] ʏᴇᴛ.</b>"
             mesg = sendMarkup(startwarn, bot, message, buttons.build_menu(2))
             sleep(15)
             mesg.delete()
@@ -61,7 +61,7 @@ def _clone(message, bot):
     is_appdrive = is_appdrive_link(link)
     is_gdtot = is_gdtot_link(link)
     if is_appdrive:
-        msg = sendMessage(f"Processing: <code>{link}</code>", bot, message)
+        msg = sendMessage(f"ᴘʀᴏᴄᴇssɪɴɢ: <code>{link}</code>", bot, message)
         try:
             link = appdrive(link)
             deleteMessage(bot, msg)
@@ -70,7 +70,7 @@ def _clone(message, bot):
             return sendMessage(str(e), bot, message)
     if is_gdtot:
         try:
-            msg = sendMessage(f"Processing: <code>{link}</code>", bot, message)
+            msg = sendMessage(f"ᴘʀᴏᴄᴇssɪɴɢ: <code>{link}</code>", bot, message)
             link = gdtot(link)
             deleteMessage(bot, msg)
         except DirectDownloadLinkException as e:
@@ -82,15 +82,15 @@ def _clone(message, bot):
         if res != "":
             return sendMessage(res, bot, message)
         if STOP_DUPLICATE:
-            LOGGER.info('Checking File/Folder if already in Drive...')
+            LOGGER.info('ᴄʜᴇᴄᴋɪɴɢ ғɪʟᴇ/ғᴏʟᴅᴇʀ ɪғ ᴀʟʀᴇᴀᴅʏ ɪɴ ᴅʀɪᴠᴇ...')
             smsg, button = gd.drive_list(name, True, True)
             if smsg:
-                msg3 = "File/Folder is already available in Drive.\nHere are the search results:"
+                msg3 = "ғɪʟᴇ/ғᴏʟᴅᴇʀ ᴀʟʀᴇᴀᴅʏ ᴀᴠᴀɪʟᴀʙʟᴇ ɪɴ ᴅʀɪᴠᴇ. ʜᴇʀᴇ ᴀʀᴇ ᴛʜᴇ sᴇᴀʀᴄʜ ʀᴇsᴜʟᴛs:"
                 return sendMarkup(msg3, bot, message, button)
         if CLONE_LIMIT is not None:
-            LOGGER.info('Checking File/Folder Size...')
+            LOGGER.info('ᴄʜᴇᴄᴋɪɴɢ ғɪʟᴇ/ғᴏʟᴅᴇʀ sɪᴢᴇ...')
             if size > CLONE_LIMIT * 1024**3:
-                msg2 = f'Failed, Clone limit is {CLONE_LIMIT}GB.\nYour File/Folder size is {get_readable_file_size(size)}.'
+                msg2 = f'ᴄʟᴏɴᴇ ʟɪᴍɪᴛ ᴇxᴄᴇᴇᴅs {CLONE_LIMIT}GB.\nʏᴏᴜʀ ғɪʟᴇ/ғᴏʟᴅᴇʀ sɪᴢᴇ ɪs {get_readable_file_size(size)}.'
                 return sendMessage(msg2, bot, message)
         if multi > 1:
             sleep(4)
@@ -100,15 +100,15 @@ def _clone(message, bot):
             sleep(4)
             Thread(target=_clone, args=(nextmsg, bot)).start()
         if files <= 20:
-            msg = sendMessage(f"Cloning: <code>{link}</code>", bot, message)
+            msg = sendMessage(f"ᴄʟᴏɴɪɴɢ: <code>{link}</code>", bot, message)
             result, button = gd.clone(link)
             deleteMessage(bot, msg)
             if BOT_PM and FORCE_BOT_PM:
-                botpm = f"\n\n<b>Hey {tag}!, I have sent your links in PM.</b>\n"
+                botpm = f"\n\n<b>ʜᴇʏ {tag}!, ɪ ʜᴀᴠᴇ sᴇɴᴛ ʏᴏᴜʀ ʟɪɴᴋs ɪɴ [ᴘᴍ].</b>\n"
                 buttons = ButtonMaker()
                 b_uname = bot.get_me().username
                 botstart = f"http://t.me/{b_uname}"
-                buttons.buildbutton("View links in PM", f"{botstart}")
+                buttons.buildbutton("ᴠɪᴇᴡ ʟɪɴᴋs ɪɴ ᴘᴍ", f"{botstart}")
                 sendMarkup(result + botpm, bot, message, buttons.build_menu(2))
                 message.delete()
                 reply_to = message.reply_to_message
@@ -133,11 +133,11 @@ def _clone(message, bot):
                     del Interval[0]
                     delete_all_messages()
                     if BOT_PM and FORCE_BOT_PM:
-                        botpm = f"\n\n<b>Hey {tag}!, I have sent your links in PM.</b>\n"
+                        botpm = f"\n\n<b>ʜᴇʏ {tag}!, ɪ ʜᴀᴠᴇ sᴇɴᴛ ʏᴏᴜʀ ʟɪɴᴋs ɪɴ [ᴘᴍ].</b>\n"
                         buttons = ButtonMaker()
                         b_uname = bot.get_me().username
                         botstart = f"http://t.me/{b_uname}"
-                        buttons.buildbutton("View links in PM", f"{botstart}")
+                        buttons.buildbutton("ᴠɪᴇᴡ ʟɪɴᴋs ɪɴ ᴘᴍ", f"{botstart}")
                         sendMarkup(result + botpm, bot, message, buttons.build_menu(2))
                         message.delete()
                         reply_to = message.reply_to_message
@@ -175,7 +175,7 @@ def _clone(message, bot):
                 LOGGER.warning(e)
                 return
     else:
-        sendMessage("Send Gdrive or Gdtot or Appdrive link along with command or by replying to the link by command\n\n<b>Multi links only by replying to first link/file:</b>\n<code>/cmd</code> 10(number of links/files)", bot, message)
+        sendMessage("sᴇɴᴅ ɢᴅʀɪᴠᴇ ᴏʀ ɢᴅᴛᴏᴛ ᴏʀ ᴀᴘᴘᴅʀɪᴠᴇ ʟɪɴᴋ ᴀʟᴏɴɢ ᴡɪᴛʜ ᴄᴏᴍᴍᴀɴᴅ ᴏʀ ʙʏ ʀᴇᴘʟʏɪɴɢ ᴛᴏ ᴛʜᴇ ғɪʀsᴛ ʟɪɴᴋ/ғɪʟᴇ:</b>\n<code>/cmd</code> 10(number of links/files)", bot, message)
 
 @new_thread
 def cloneNode(update, context):
