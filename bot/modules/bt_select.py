@@ -13,7 +13,7 @@ def select(update, context):
         gid = context.args[0]
         dl = getDownloadByGid(gid)
         if not dl:
-            sendMessage(f"GID: <code>{gid}</code> Not Found.", context.bot, update.message)
+            sendMessage(f"ɢɪᴅ: <code>{gid}</code> ɴᴏᴛ ғᴏᴜɴᴅ.", context.bot, update.message)
             return
     elif update.message.reply_to_message:
         mirror_message = update.message.reply_to_message
@@ -26,20 +26,20 @@ def select(update, context):
             sendMessage("This is not an active task!", context.bot, update.message)
             return
     elif len(context.args) == 0:
-        msg = "Reply to an active /cmd which was used to start the qb-download or add gid along with cmd\n\n"
-        msg += "This command mainly for selection incase you decided to select files from already added torrent. "
-        msg += "But you can always use /cmd with arg `s` to select files before download start."
+        msg = "ʀᴇᴘʟʏ ᴛᴏ ᴀɴ ᴀᴄᴛɪᴠᴇ /cmd ᴡʜɪᴄʜ was ᴜsᴇᴅ ᴛᴏ sᴛᴀʀᴛ ᴛʜᴇ ǫʙ ᴅᴏᴡɴʟᴏᴀᴅ ᴏʀ ᴀᴅᴅ ɢɪᴅ ᴀʟᴏɴɢ ᴡɪᴛʜ cmd\n\n"
+        msg += "Tᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ ᴍᴀɪɴʟʏ ғᴏʀ sᴇʟᴇᴄᴛɪᴏɴ ɪɴᴄᴀsᴇ ʏᴏᴜ ᴅᴇᴄɪᴅᴇ ᴛᴏ sᴇʟᴇᴄᴛ ғɪʟᴇsғʀᴏɴ ᴀʟʀᴇᴀᴅʏ ᴀᴅᴅᴇᴅ ᴛᴏʀʀᴇɴᴛ. "
+        msg += "ʙᴜᴛ ʏᴏᴜ ᴄᴀɴ ᴀʟᴡᴀʏs ᴜsᴇ /cmd ᴡɪᴛʜ ᴀʀɢ 's' ᴛᴏ sᴇʟᴇᴄᴛ ғɪʟᴇs ʙᴇғᴏʀᴇ ᴅᴏᴡɴʟᴏᴀᴅ sᴛᴀʀᴛs."
         sendMessage(msg, context.bot, update.message)
         return
 
     if OWNER_ID != user_id and dl.message.from_user.id != user_id and user_id not in SUDO_USERS:
-        sendMessage("This task is not for you!", context.bot, update.message)
+        sendMessage("ᴛʜɪs ɪsɴᴛ ʏᴏᴜʀs! sᴛᴇᴘ ʙᴀᴄᴋ!", context.bot, update.message)
         return
     if dl.status() not in [MirrorStatus.STATUS_DOWNLOADING, MirrorStatus.STATUS_PAUSED, MirrorStatus.STATUS_WAITING]:
-        sendMessage('Task should be in downloading status or in pause status incase message deleted by wrong or in queued status incase you used torrent file!', context.bot, update.message)
+        sendMessage('ᴛᴀsᴋ sʜᴏᴜʟᴅ ʙᴇ ɪɴ ᴅᴏᴡɴʟᴏᴀᴅ sᴛᴀᴛᴜs ᴏʀ ɪɴ ᴘᴀᴜsᴇ sᴛᴀᴛᴜs ɪɴᴄᴀsᴇ ᴍᴇssᴀɢᴇ ᴅᴇʟᴇᴛᴇᴅ ʙʏ ᴡʀᴏɴɢ ᴏʀ ɪɴ ǫᴜᴇᴜᴇᴅ sᴛᴀᴛᴜs ɪɴᴄᴀsᴇ ʏᴏᴜ ᴜsᴇᴅ ᴛᴏʀʀᴇɴᴛ ғɪʟᴇ!', context.bot, update.message)
         return
     if dl.name().startswith('[METADATA]'):
-        sendMessage('Try after downloading metadata finished!', context.bot, update.message)
+        sendMessage('ᴛʀʏ ᴀғᴛᴇʀ ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ ᴍᴇᴛᴀᴅᴀᴛᴀ ғɪɴɪsʜᴇᴅ!', context.bot, update.message)
         return
 
     try:
@@ -51,11 +51,11 @@ def select(update, context):
             id_ = dl.gid()
             aria2.client.force_pause(id_)
     except:
-        sendMessage("This is not a bittorrent task!", context.bot, update.message)
+        sendMessage("ᴛʜɪs ɪsɴ'ᴛ ᴀ ʙɪᴛᴛᴏʀʀᴇɴᴛ ᴛᴀsᴋ!", context.bot, update.message)
         return
 
     SBUTTONS = bt_selection_buttons(id_)
-    msg = "Your download paused. Choose files then press Done Selecting button to resume downloading."
+    msg = "ʏᴏᴜʀ ᴅᴏᴡɴʟᴏᴀᴅ ᴘᴀᴜsᴇᴅ. ᴄʜᴏᴏsᴇ ғɪʟᴇs ᴛʜᴇɴ ᴘʀᴇss ᴅᴏɴᴇ sᴇʟᴇᴄᴛɪɴɢ ʙᴜᴛᴛᴏɴ ᴛᴏ ʀᴇᴡᴜᴍᴇ ᴅᴏᴡɴʟᴏᴀɪɴɢ."
     sendMarkup(msg, context.bot, update.message, SBUTTONS)
 
 def get_confirm(update, context):
@@ -65,12 +65,12 @@ def get_confirm(update, context):
     data = data.split()
     dl = getDownloadByGid(data[2])
     if not dl:
-        query.answer(text="This task has been cancelled!", show_alert=True)
+        query.answer(text="ᴛʜɪs ᴛᴀsᴋ ʜᴀs ʙᴇᴇɴ ᴄᴀɴᴄᴇʟʟᴇᴅ!", show_alert=True)
         query.message.delete()
         return
     listener = dl.listener()
     if user_id != listener.message.from_user.id:
-        query.answer(text="This task is not for you!", show_alert=True)
+        query.answer(text="ᴛʜɪs ɪsɴᴛ ʏᴏᴜʀs! sᴛᴇᴘ ʙᴀᴄᴋ!", show_alert=True)
     elif data[1] == "pin":
         query.answer(text=data[3], show_alert=True)
     elif data[1] == "done":
