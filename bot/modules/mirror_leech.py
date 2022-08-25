@@ -25,7 +25,7 @@ def _mirror_leech(bot, message, isZip=False, extract=False, isQbit=False, isLeec
     buttons = ButtonMaker()
     if BOT_PM and message.chat.type != 'private':
         try:
-            msg1 = f'Added your Requested link to Download\n'
+            msg1 = f'ᴀᴅᴅᴇᴅ ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛᴇᴅ ʟɪɴᴋ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ\n'
             send = bot.sendMessage(message.from_user.id, text=msg1)
             send.delete()
         except Exception as e:
@@ -34,8 +34,8 @@ def _mirror_leech(bot, message, isZip=False, extract=False, isQbit=False, isLeec
             b_uname = bot_d.username
             uname = message.from_user.mention_html(message.from_user.first_name)
             botstart = f"http://t.me/{b_uname}"
-            buttons.buildbutton("Click Here to Start Me", f"{botstart}")
-            startwarn = f"<b>Dear {uname}, Start me in PM to use me.</b>"
+            buttons.buildbutton("ʟᴇᴛs ɢᴇᴛ sᴛᴀʀᴛᴇᴅ", f"{botstart}")
+            startwarn = f"<b>ᴀʜʜ {uname}, sᴇᴇᴍs ʟɪᴋᴇ ʏᴏᴜ ʜᴀᴠᴇɴᴛ ᴛᴀʟᴋᴇᴅ ᴍᴇ ɪɴ ᴘʀɪᴠᴀᴛᴇ [ᴘᴍ] ʏᴇᴛ.</b>"
             mesg = sendMarkup(startwarn, bot, message, buttons.build_menu(2))
             sleep(15)
             mesg.delete()
@@ -208,9 +208,9 @@ def _mirror_leech(bot, message, isZip=False, extract=False, isQbit=False, isLeec
 
     if is_gdrive_link(link):
         if not isZip and not extract and not isLeech:
-            gmsg = f"Use /{BotCommands.CloneCommand} to clone Google Drive file/folder\n\n"
-            gmsg += f"Use /{BotCommands.ZipMirrorCommand[0]} to make zip of Google Drive folder\n\n"
-            gmsg += f"Use /{BotCommands.UnzipMirrorCommand[0]} to extracts Google Drive archive folder/file"
+            gmsg = f"ᴜsᴇ /{BotCommands.CloneCommand} ᴛᴏ ᴄʟᴏɴᴇ ɢᴏᴏɢʟᴇ ᴅʀɪᴠᴇ ғɪʟᴇ/ғᴏʟᴅᴇʀ\n\n"
+            gmsg += f"ᴜsᴇ /{BotCommands.ZipMirrorCommand[0]} ᴛᴏ ᴍᴀᴋᴇ ᴢɪᴘ ᴏғ ɢᴏᴏɢʟᴇ ᴅʀɪᴠᴇ ғᴏʟᴅᴇʀ\n\n"
+            gmsg += f"ᴜsᴇ /{BotCommands.UnzipMirrorCommand[0]} ᴛᴏ ᴇxᴛʀᴀᴄᴛ ɢᴏᴏɢʟᴇ ᴅʀɪᴠᴇ ᴀʀᴄʜɪᴠᴇᴅ ғɪʟᴇs/file"
             sendMessage(gmsg, bot, message)
         else:
             Thread(target=add_gd_download, args=(link, f'{DOWNLOAD_DIR}{listener.uid}', listener, name)).start()
