@@ -72,7 +72,7 @@ class TelegraphHelper:
                     nxt_page += 1
             self.edit_page(
                 path = path[prev_page],
-                title = 'Helios Mirror Torrent Search',
+                title = 'sᴘʏ x ᴍɪʀʀᴏʀ ᴛᴏʀʀᴇɴᴛ sᴇᴀʀᴄʜ',
                 content=content
             )
         return
